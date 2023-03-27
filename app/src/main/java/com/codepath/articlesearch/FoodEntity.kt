@@ -16,6 +16,6 @@ import androidx.room.PrimaryKey
     @Entity(tableName = "foods_table")
     data class FoodEntity(
         @PrimaryKey(autoGenerate = true) val id: Long = 0,
-        @ColumnInfo(name = "food") val food: String,
+        @ColumnInfo(name = "food") val name: String,
         @ColumnInfo(name = "calories") val calories: String,
     )

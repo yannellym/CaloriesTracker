@@ -18,8 +18,6 @@ class DisplayArticleAdapter(private val context: Context, private val foods: Lis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_single, parent, false)
         return ViewHolder(view)
-
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,16 +38,16 @@ class DisplayArticleAdapter(private val context: Context, private val foods: Lis
         }
 
         fun bind(food: DisplayFoods) {
-            titleTextView.text = itemView.findViewById<TextView>(R.id.user_title)?.toString()
-            abstractTextView.text = itemView.findViewById<TextView>(R.id.user_message)?.toString()
-
-//            Glide.with(context)
-//                .load(article.mediaImageUrl)
-//                .into(mediaImageView)
+            titleTextView.text = food.name
+            abstractTextView.text = food.calories.toString()
+            // Hide the button and user input fields
+            itemView.findViewById<View>(R.id.submit_button).visibility = View.GONE
+            itemView.findViewById<View>(R.id.user_title).visibility = View.GONE
+            itemView.findViewById<View>(R.id.user_message).visibility = View.GONE
         }
 
         override fun onClick(v: View?) {
-            // Get selected article
+            // Get selected food
             val food = foods[absoluteAdapterPosition]
 
             //  Navigate to Details screen and pass selected article

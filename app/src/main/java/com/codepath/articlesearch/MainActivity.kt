@@ -1,5 +1,6 @@
 package com.codepath.articlesearch
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,48 +15,51 @@ import kotlinx.coroutines.launch
 private const val TAG = "MainActivity/"
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var foodsRecyclerView: RecyclerView
-    private lateinit var binding: ActivityMainBinding
-    private val foods = mutableListOf<DisplayFoods>()
+
+    companion object {
+        const val REQUEST_CODE_ADD_FOOD = 1
+        const val FOODS_EXTRA = "FOODS_EXTRA"
+    }
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: DisplayArticleAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var addButton: Button
+    private lateinit var foods: MutableList<DisplayFoods>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        // Initialize RecyclerView
+        recyclerView = findViewById(R.id.foods)
+        layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
 
-        foodsRecyclerView = findViewById(R.id.foods)
-        val foodAdapter = DisplayArticleAdapter(this, foods)
-        foodsRecyclerView.adapter = foodAdapter
+        // Initialize list of foods
+        foods = mutableListOf()
+        adapter = DisplayArticleAdapter(this, foods)
+        recyclerView.adapter = adapter
 
-        foodsRecyclerView.layoutManager = LinearLayoutManager(this).also {
-            val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
-            foodsRecyclerView.addItemDecoration(dividerItemDecoration)
-        }
-        // Listen to any changes to items in the database
-        // When we have a new list of items to display:
-        // Map new items to DisplayArticles
-        // Update our UI by passing the new list to our ArticleAdapter.
-        lifecycleScope.launch {
-            (application as FoodApplication).db.foodDao().getAll().collect { databaseList ->
-                databaseList.map { entity ->
-                    DisplayFoods(
-                        entity.food,
-                        entity.calories,
-                    )
-                }.also { mappedList ->
-                    foods.clear()
-                    foods.addAll(mappedList)
-                    foodAdapter.notifyDataSetChanged()
-                }
-            }
-        }
-        // Move the initialization of addFoodButton to this block
-        val addFoodButton: Button = findViewById<Button>(R.id.addFood)
-        addFoodButton.setOnClickListener {
+        // Initialize FAB and set click listener
+        addButton = findViewById(R.id.addFood)
+        addButton.setOnClickListener {
             val intent = Intent(this, DetailActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_ADD_FOOD)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_ADD_FOOD && resultCode == Activity.RESULT_OK && data != null) {
+            val food = data.getParcelableExtra<DisplayFoods>(FOODS_EXTRA)
+
+            // Add new food to list and update RecyclerView
+            if (food != null) {
+                foods.add(food)
+            }
+            adapter.notifyDataSetChanged()
         }
     }
 }
