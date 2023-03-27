@@ -1,0 +1,16 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/design_default_color_primary_variant</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="colorAccent">#189FFF</item>
+    </style>
+
+    <!-- Style for red button -->
+    <style name="RedButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">#ff0000</item>
+    </style>
+
+</resources>

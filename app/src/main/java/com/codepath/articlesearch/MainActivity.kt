@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_CODE_ADD_FOOD = 1
         const val FOODS_EXTRA = "FOODS_EXTRA"
     }
-
+    // declare the variables that will be used
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: DisplayArticleAdapter
     private lateinit var layoutManager: LinearLayoutManager
@@ -55,10 +55,11 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_ADD_FOOD && resultCode == Activity.RESULT_OK && data != null) {
             val food = data.getParcelableExtra<DisplayFoods>(FOODS_EXTRA)
 
-            // Add new food to list and update RecyclerView
+            // Add new food to list and update RecyclerView if its not nukk
             if (food != null) {
                 foods.add(food)
             }
+            // updates the adapter letting it know that the data changed
             adapter.notifyDataSetChanged()
         }
     }

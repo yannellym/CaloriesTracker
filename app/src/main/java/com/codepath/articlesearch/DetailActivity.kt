@@ -10,9 +10,10 @@ import com.codepath.articlesearch.databinding.ActivityDetailBinding
 
 private const val TAG = "DetailActivity"
 
-//This Activity will be responsible for showing more information about the book that was selected
-//from the list of articles. The new screen will show the article's title, author, a short summary
-//of the article, and an image (if there is one to show).
+/*
+this will display the calories and food textViews. It will also allow the user to enter the chosen
+food and calories. Then, submit upon being done. The submit button has a click listener that send the info to the main screen.
+*/
 class DetailActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
     private lateinit var userFood: TextView
@@ -33,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
             val calories = userCalories.text.toString()
 
             val food = DisplayFoods(name, calories)
-
+            // our intent to go to the main page
             val intent = Intent()
             intent.putExtra(FOODS_EXTRA, food)
             setResult(Activity.RESULT_OK, intent)

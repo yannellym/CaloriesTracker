@@ -20,6 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun foodDao(): FoodDao // Declares an abstract method that returns an instance of the FoodDao interface
 
     companion object {
+        // Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
@@ -28,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
         }
-
+        // builds our database
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(
                 context.applicationContext,

@@ -1,7 +1,7 @@
 # and102-lab4
 Lab 4: NY Times API
 
-App name: ArticleSearch
+App name: BitFit
 
 This app allows the user to see a list of article abstracts, with the article title, description, and media photo.
 When they tap on a specific article, it will navigate them to a details screen with the same information, 

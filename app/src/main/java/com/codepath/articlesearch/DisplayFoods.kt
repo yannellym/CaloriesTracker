@@ -5,7 +5,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 
-// because Article and FoodEntity don't match up, we need to create this class to pass data around
+
 @Parcelize
 data class DisplayFoods(
     val name: String,
@@ -28,6 +28,6 @@ data class DisplayFoods(
         }
     }
 }
-// we need to update DetailsActivity, MainActivity and ArticleAdapter to use
+// we need to update DetailsActivity, MainActivity and DisplayFoodsAdapter to use
 // our new data class for all UI related tasks.
 
