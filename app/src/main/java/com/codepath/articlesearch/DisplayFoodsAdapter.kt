@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 const val FOODS_EXTRA = "FOODS_EXTRA"
 private const val TAG = "DisplayFoodsAdapter"
 
-class DisplayArticleAdapter(private val context: Context, private val foods: List<DisplayFoods>) :
-    RecyclerView.Adapter<DisplayArticleAdapter.ViewHolder>() {
+class DisplayFoodsAdapter(private val context: Context, private val foods: List<DisplayFoods>) :
+    RecyclerView.Adapter<DisplayFoodsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_detail, parent, false)
