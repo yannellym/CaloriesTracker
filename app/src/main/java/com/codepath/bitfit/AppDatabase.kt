@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+
 // BUILDS THE DATABASE
 //AppDatabase defines the database configuration and serves as the app's main access point
 //to the persisted data. The database class must satisfy the following conditions: The class must be
@@ -29,13 +31,34 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
         }
+
         // builds our database
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(
+            val db = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 "Food-db"
-            ).build()
+            )
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+
+                        // define example foods
+                        val foods = listOf(
+                            FoodEntity(name = "Banana", calories = "105"),
+                            FoodEntity(name = "Apple", calories = "95"),
+                            FoodEntity(name = "Chicken breast", calories = "165"),
+                            FoodEntity(name = "Salmon", calories = "206")
+                        )
+
+                        // insert the example foods into the database
+                        val dao = AppDatabase.getInstance(context).foodDao()
+                        dao.insertAll(foods)
+                    }
+                })
+                .build()
+
+            return db
         }
     }
 }

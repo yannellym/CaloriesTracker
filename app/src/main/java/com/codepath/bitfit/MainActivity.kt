@@ -1,6 +1,5 @@
 package com.codepath.bitfit
 
-import FoodListFragment
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,7 +11,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val TAG = "MainActivity/"
 
+
 class MainActivity : AppCompatActivity() {
+
     companion object {
         const val REQUEST_CODE_ADD_FOOD = 1
         const val FOODS_EXTRA = "FOODS_EXTRA"
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var addButton: Button
+    private lateinit var foodListFragment: FoodListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,25 +30,25 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-//      define your fragments here
-        val foodListFragment: Fragment = FoodListFragment()
-        //val foodDashFragment: Fragment = FoodListFragment()
+        // pass the list of foods to the com.codepath.bitfit.FoodListFragment
+        foodListFragment = FoodListFragment()
 
-          val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-//
-//        // handle navigation selection
-          bottomNavigationView.setOnItemSelectedListener { item ->
-              lateinit var fragment: Fragment
-            when (item.itemId) {
-                R.id.food_log -> fragment = foodListFragment
-                R.id.food_dash-> fragment = foodListFragment
+        // Set the com.codepath.bitfit.FoodListFragment as the default fragment to show
+        replaceFragment(foodListFragment)
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // handle navigation selection
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            val fragment: Fragment = when (item.itemId) {
+                R.id.food_log -> foodListFragment
+                else -> foodListFragment // default fragment to show
             }
             replaceFragment(fragment)
             true
         }
-
-//        // Set default selection
-         bottomNavigationView.selectedItemId = R.id.food_log
+        // Set default selection
+        bottomNavigationView.selectedItemId = R.id.food_log
 
         // Initialize FAB and set click listener
         addButton = findViewById(R.id.addFood)
@@ -56,10 +58,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(foodListFragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.food_frame_layout, foodListFragment)
+        fragmentTransaction.replace(R.id.food_frame_layout, fragment)
         fragmentTransaction.commit()
     }
 }

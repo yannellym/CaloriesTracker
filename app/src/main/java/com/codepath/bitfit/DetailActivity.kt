@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.codepath.bitFit.R
 import com.codepath.bitFit.databinding.ActivityDetailBinding
+import com.codepath.bitfit.MainActivity.Companion.FOODS_EXTRA
+
 private const val TAG = "DetailActivity"
 
 /*
