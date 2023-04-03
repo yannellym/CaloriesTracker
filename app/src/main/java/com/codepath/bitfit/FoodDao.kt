@@ -1,9 +1,12 @@
-package com.codepath.articlesearch
+package com.codepath.bitfit
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+
+private const val TAG = "FoodDao"
 
 //Data access objects (DAOs) defines and provides methods that your app can use to query,
 //update, insert, and delete data in our created database. Think of the DAO as a messenger
@@ -22,7 +25,9 @@ interface FoodDao {
     fun getAll(): Flow<List<FoodEntity>>
 
     @Insert
-    fun insertAll(foods: List<FoodEntity>)
+    fun insertAll(foods: List<FoodEntity>){
+        Log.d(TAG,"Inserted ${foods.size} foods into the database.")
+    }
 
     @Query("DELETE FROM foods_table")
     fun deleteAll()

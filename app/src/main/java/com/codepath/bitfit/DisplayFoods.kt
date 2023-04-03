@@ -1,4 +1,4 @@
-package com.codepath.articlesearch
+package com.codepath.bitfit
 
 import android.os.Parcel
 import android.os.Parcelable

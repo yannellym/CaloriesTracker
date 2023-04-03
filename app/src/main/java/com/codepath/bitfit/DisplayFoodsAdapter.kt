@@ -1,22 +1,25 @@
-package com.codepath.articlesearch
+package com.codepath.bitfit
 
 import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.codepath.bitFit.R
 
 const val FOODS_EXTRA = "FOODS_EXTRA"
 private const val TAG = "DisplayFoodsAdapter"
 
-class DisplayFoodsAdapter(private val context: Context, var foods: MutableList<DisplayFoods>) :
+class DisplayFoodsAdapter(private val context: Context, var foods: MutableList<Food>) :
     RecyclerView.Adapter<DisplayFoodsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_detail, parent, false)
+        Log.d(TAG, "onCreateView displayfoodsadapter")
         return ViewHolder(view)
     }
 
@@ -39,8 +42,8 @@ class DisplayFoodsAdapter(private val context: Context, var foods: MutableList<D
         /*
         will display the name of the foods and calories that were inputted
         */
-        fun bind(food: DisplayFoods) {
-            titleTextView.text = food.name
+        fun bind(food: Food) {
+            titleTextView.text = food.food
             abstractTextView.text = food.calories.toString()
             itemView.findViewById<View>(R.id.calories_sub).visibility = View.VISIBLE
         }

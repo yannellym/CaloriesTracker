@@ -1,4 +1,4 @@
-package com.codepath.articlesearch
+package com.codepath.bitfit
 
 import android.app.Activity
 import android.content.Intent
@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.codepath.articlesearch.databinding.ActivityDetailBinding
-
+import com.codepath.bitFit.R
+import com.codepath.bitFit.databinding.ActivityDetailBinding
 private const val TAG = "DetailActivity"
 
 /*
@@ -34,6 +34,8 @@ class DetailActivity : AppCompatActivity() {
             val calories = userCalories.text.toString()
 
             val food = DisplayFoods(name, calories)
+            val foodEntity = FoodEntity(0,name, calories)
+            AppDatabase.getInstance(this).foodDao().insertAll(listOf(foodEntity))
             // our intent to go to the main page
             val intent = Intent()
             intent.putExtra(FOODS_EXTRA, food)

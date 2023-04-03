@@ -1,4 +1,4 @@
-package com.codepath.articlesearch
+package com.codepath.bitfit
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
