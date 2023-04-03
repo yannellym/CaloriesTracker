@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 const val FOODS_EXTRA = "FOODS_EXTRA"
 private const val TAG = "DisplayFoodsAdapter"
 
-class DisplayFoodsAdapter(private val context: Context, private val foods: List<DisplayFoods>) :
+class DisplayFoodsAdapter(private val context: Context, var foods: MutableList<DisplayFoods>) :
     RecyclerView.Adapter<DisplayFoodsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
