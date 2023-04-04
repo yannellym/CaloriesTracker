@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
     // for this, we'll use a long to generate a unique iD
     @Entity(tableName = "foods_table")
     data class FoodEntity(
-        @PrimaryKey(autoGenerate = true) val id: Long = 0,
         @ColumnInfo(name = "food") val name: String,
         @ColumnInfo(name = "calories") val calories: String,
+        @PrimaryKey(autoGenerate = true) val id: Long = 0
     )

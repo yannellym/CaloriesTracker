@@ -1,14 +1,15 @@
 package com.codepath.bitfit
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.codepath.bitFit.R
 import com.codepath.bitFit.databinding.ActivityDetailBinding
-import com.codepath.bitfit.MainActivity.Companion.FOODS_EXTRA
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val TAG = "DetailActivity"
 
@@ -26,7 +27,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.item_single)
+        setContentView(R.layout.activity_detail)
         submitButton = findViewById(R.id.submit_button)
         userFood = findViewById(R.id.user_title)
         userCalories = findViewById(R.id.user_message)
@@ -35,14 +36,15 @@ class DetailActivity : AppCompatActivity() {
             val name = userFood.text.toString()
             val calories = userCalories.text.toString()
 
-            val food = DisplayFoods(name, calories)
-            val foodEntity = FoodEntity(0,name, calories)
-            AppDatabase.getInstance(this).foodDao().insertAll(listOf(foodEntity))
+            lifecycleScope.launch(Dispatchers.IO) {
+                (application as FoodApplication).db.foodDao().insert(
+                    FoodEntity(name, calories)
+                )
+            }
+
             // our intent to go to the main page
-            val intent = Intent()
-            intent.putExtra(FOODS_EXTRA, food)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            val i = Intent(this@DetailActivity, MainActivity::class.java)
+            startActivity(i)
         }
     }
 }

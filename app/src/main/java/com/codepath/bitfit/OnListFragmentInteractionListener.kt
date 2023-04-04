@@ -2,5 +2,5 @@ package com.codepath.bitfit
 
 interface OnListFragmentInteractionListener {
 
-    fun onItemClick(item: Food)
+    fun onItemClick(item: FoodEntity)
 }

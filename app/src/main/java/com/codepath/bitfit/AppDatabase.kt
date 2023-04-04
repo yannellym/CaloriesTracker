@@ -1,6 +1,7 @@
 package com.codepath.bitfit
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -15,7 +16,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 //with the database, the database class must define an abstract method that has zero arguments
 //and returns an instance of the DAO class.
 
-
+private const val TAG = "database"
 // Annotates the class to specify the database entities and version
 @Database(entities = [FoodEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -34,31 +35,11 @@ abstract class AppDatabase : RoomDatabase() {
 
         // builds our database
         private fun buildDatabase(context: Context): AppDatabase {
-            val db = Room.databaseBuilder(
+            return Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 "Food-db"
-            )
-                .addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-
-                        // define example foods
-                        val foods = listOf(
-                            FoodEntity(name = "Banana", calories = "105"),
-                            FoodEntity(name = "Apple", calories = "95"),
-                            FoodEntity(name = "Chicken breast", calories = "165"),
-                            FoodEntity(name = "Salmon", calories = "206")
-                        )
-
-                        // insert the example foods into the database
-                        val dao = AppDatabase.getInstance(context).foodDao()
-                        dao.insertAll(foods)
-                    }
-                })
-                .build()
-
-            return db
+            ).build()
         }
     }
 }

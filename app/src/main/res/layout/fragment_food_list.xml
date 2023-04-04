@@ -8,8 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/activity_detail" />
+        android:layout_height="match_parent" />
 
 <!--    <androidx.core.widget.ContentLoadingProgressBar-->
 <!--        android:id="@+id/progress"-->

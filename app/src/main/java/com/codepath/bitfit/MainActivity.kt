@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.codepath.bitFit.R
 import com.codepath.bitFit.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,11 +14,6 @@ private const val TAG = "MainActivity/"
 
 
 class MainActivity : AppCompatActivity() {
-
-    companion object {
-        const val REQUEST_CODE_ADD_FOOD = 1
-        const val FOODS_EXTRA = "FOODS_EXTRA"
-    }
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var addButton: Button
@@ -31,18 +27,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         // pass the list of foods to the com.codepath.bitfit.FoodListFragment
-        foodListFragment = FoodListFragment()
-
-        // Set the com.codepath.bitfit.FoodListFragment as the default fragment to show
-        replaceFragment(foodListFragment)
+        val foodListFragment: Fragment = FoodListFragment()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         // handle navigation selection
         bottomNavigationView.setOnItemSelectedListener { item ->
-            val fragment: Fragment = when (item.itemId) {
-                R.id.food_log -> foodListFragment
-                else -> foodListFragment // default fragment to show
+            lateinit var fragment: Fragment
+            when (item.itemId) {
+                R.id.food_log -> fragment = foodListFragment
             }
             replaceFragment(fragment)
             true
@@ -54,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         addButton = findViewById(R.id.addFood)
         addButton.setOnClickListener {
             val intent = Intent(this, DetailActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_ADD_FOOD)
+            startActivity(intent)
         }
     }
 
