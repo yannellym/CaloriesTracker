@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF" >
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/food_log"
         android:enabled="true"
@@ -13,6 +10,7 @@
         android:id="@+id/food_dash"
         android:enabled="true"
         android:icon="@drawable/food_dash"
-        android:title="Dash"
+        android:title="Stats"
         app:showAsAction="ifRoom" />
+
 </menu>

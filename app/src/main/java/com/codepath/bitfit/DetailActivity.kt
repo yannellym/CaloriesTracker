@@ -6,8 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.codepath.bitFit.R
-import com.codepath.bitFit.databinding.ActivityDetailBinding
+import com.codepath.bitbit.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -21,16 +20,15 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
     private lateinit var userFood: TextView
     private lateinit var userCalories: TextView
-    private lateinit var binding: ActivityDetailBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.activity_detail)
+        setContentView(R.layout.detail_activity)
         submitButton = findViewById(R.id.submit_button)
         userFood = findViewById(R.id.user_title)
         userCalories = findViewById(R.id.user_message)
+
+
 
         submitButton.setOnClickListener {
             val name = userFood.text.toString()
@@ -41,7 +39,6 @@ class DetailActivity : AppCompatActivity() {
                     FoodEntity(name, calories)
                 )
             }
-
             // our intent to go to the main page
             val i = Intent(this@DetailActivity, MainActivity::class.java)
             startActivity(i)

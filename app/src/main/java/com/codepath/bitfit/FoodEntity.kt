@@ -11,11 +11,11 @@ import androidx.room.PrimaryKey
 
 
 
-    // all users need a unique ID to be identified within the table.
-    // for this, we'll use a long to generate a unique iD
-    @Entity(tableName = "foods_table")
-    data class FoodEntity(
-        @ColumnInfo(name = "food") val name: String,
-        @ColumnInfo(name = "calories") val calories: String,
-        @PrimaryKey(autoGenerate = true) val id: Long = 0
-    )
+// all users need a unique ID to be identified within the table.
+// for this, we'll use a long to generate a unique iD
+@Entity(tableName = "foods_table")
+data class FoodEntity(
+    @ColumnInfo(name = "food") val name: String?,
+    @ColumnInfo(name = "calories") val calories: String?,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0
+)

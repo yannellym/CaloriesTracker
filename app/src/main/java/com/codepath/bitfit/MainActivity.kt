@@ -1,13 +1,11 @@
 package com.codepath.bitfit
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.codepath.bitFit.R
-import com.codepath.bitFit.databinding.ActivityMainBinding
+import com.codepath.bitbit.R
+import com.codepath.bitbit.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val TAG = "MainActivity/"
@@ -16,21 +14,16 @@ private const val TAG = "MainActivity/"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var addButton: Button
-    private lateinit var foodListFragment: FoodListFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        // pass the list of foods to the com.codepath.bitfit.FoodListFragment
+        // fragments that will be used
         val foodListFragment: Fragment = FoodListFragment()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-
         // handle navigation selection
         bottomNavigationView.setOnItemSelectedListener { item ->
             lateinit var fragment: Fragment
@@ -42,13 +35,6 @@ class MainActivity : AppCompatActivity() {
         }
         // Set default selection
         bottomNavigationView.selectedItemId = R.id.food_log
-
-        // Initialize FAB and set click listener
-        addButton = findViewById(R.id.addFood)
-        addButton.setOnClickListener {
-            val intent = Intent(this, DetailActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

@@ -24,10 +24,6 @@ interface FoodDao {
     @Query("SELECT * FROM foods_table")
     fun getAll(): Flow<List<FoodEntity>>
 
-//    @Insert
-//    fun insertAll(foods: List<FoodEntity>){
-//        Log.d(TAG,"Inserted ${foods.size} foods into the database.")
-//    }
     @Insert
     fun insert(foods: FoodEntity ){
         Log.d(TAG,"Inserted $foods foods into the database.")

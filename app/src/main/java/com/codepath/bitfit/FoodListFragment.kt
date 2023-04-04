@@ -1,17 +1,18 @@
 package com.codepath.bitfit
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.Button
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.codepath.bitFit.R
+import com.codepath.bitbit.R
 import kotlinx.coroutines.launch
 
 private const val TAG = "FoodListFragment"
@@ -25,7 +26,6 @@ class FoodListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Log.d(TAG, "showing fragment")
         // Call the new method within onCreate
     }
@@ -36,7 +36,9 @@ class FoodListFragment : Fragment() {
     ): View? {
         Log.d(TAG, foods.isEmpty().toString())
         val view = inflater.inflate(R.layout.fragment_food_list, container, false)
-        recyclerView = view.findViewById(R.id.food_recycler_view)
+
+        // Define RecyclerView and Adapter
+        recyclerView = view.findViewById(R.id.recyclerView)
         displayFoodsAdapter = DisplayFoodsAdapter(requireContext(), foods)
         recyclerView.adapter = displayFoodsAdapter
 
@@ -46,7 +48,6 @@ class FoodListFragment : Fragment() {
         }
 
         Log.d(TAG, "inside fragment")
-
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,46 +55,25 @@ class FoodListFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            (requireActivity().application as FoodApplication).db.foodDao().getAll().collect { databaseList ->
+            (requireActivity().application as FoodApplication).db.foodDao().getAll()
+                .collect { databaseList ->
                     Log.d(TAG, "looking through database")
-
                     foods.clear()
                     databaseList.map { mappedList ->
                         foods.addAll(listOf(mappedList))
                         displayFoodsAdapter.notifyDataSetChanged()
-                    }
+                   }
                 }
+            }
+        recyclerView.layoutManager = LinearLayoutManager(requireContext()).also {
+            val dividerItemDecoration = DividerItemDecoration(requireContext(), it.orientation)
+            recyclerView.addItemDecoration(dividerItemDecoration)
+        }
+        //Calling an intent on Button Click
+        val addButton = view.findViewById<Button>(R.id.addFood)
+        addButton.setOnClickListener {
+            val intent = Intent(requireActivity(), DetailActivity::class.java)
+            startActivity(intent)
         }
     }
-
-
-
-//    private fun fetchFoods() {
-//        Log.d(TAG, "fetching food")
-//        lifecycleScope.launch {
-//            // Fetch the data and update the list
-//            foodDao.getAll().collect { data ->
-//                Log.d(TAG, "Data received from database: $data")
-//                foods.addAll(data.map { foodEntity ->
-//                    Log.d(TAG, "Inserted food: ${foodEntity.name} (${foodEntity.calories} calories)")
-//                    Food(
-//                        foodEntity.name,
-//                        foodEntity.calories,
-//                    )
-//                })
-//                displayFoodsAdapter.foods = foods.toMutableList() // update adapter with new data
-//                displayFoodsAdapter.notifyDataSetChanged()
-//            }
-//        }
-//    }
-
-//    override fun onItemClick(item: Food) {
-//        Toast.makeText(context, "test: " + item.name + item.calories, Toast.LENGTH_LONG).show()
-//    }
-
-//    companion object {
-//        fun newInstance(): FoodListFragment {
-//            return FoodListFragment()
-//        }
-//    }
 }
