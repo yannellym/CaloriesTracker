@@ -8,6 +8,7 @@
     <application
         android:name="com.codepath.bitfit.FoodApplication"
         android:allowBackup="true"
+        android:windowSoftInputMode="adjustPan"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:enableOnBackInvokedCallback="true"

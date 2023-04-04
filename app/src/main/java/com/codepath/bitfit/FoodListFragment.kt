@@ -62,9 +62,9 @@ class FoodListFragment : Fragment() {
                     databaseList.map { mappedList ->
                         foods.addAll(listOf(mappedList))
                         displayFoodsAdapter.notifyDataSetChanged()
-                   }
+                    }
                 }
-            }
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext()).also {
             val dividerItemDecoration = DividerItemDecoration(requireContext(), it.orientation)
             recyclerView.addItemDecoration(dividerItemDecoration)

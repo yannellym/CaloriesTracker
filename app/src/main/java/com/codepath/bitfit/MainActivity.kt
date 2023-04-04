@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         // fragments that will be used
         val foodListFragment: Fragment = FoodListFragment()
+        val foodDashFragment: Fragment = DashFragment()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         // handle navigation selection
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             lateinit var fragment: Fragment
             when (item.itemId) {
                 R.id.food_log -> fragment = foodListFragment
+                R.id.food_dash -> fragment = foodDashFragment
             }
             replaceFragment(fragment)
             true
