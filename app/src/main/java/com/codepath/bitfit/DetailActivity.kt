@@ -36,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 (application as FoodApplication).db.foodDao().insert(
-                    FoodEntity(name, calories)
+                    FoodEntity(name, calories.toInt())
                 )
             }
             // our intent to go to the main page

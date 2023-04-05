@@ -44,7 +44,7 @@ class DisplayFoodsAdapter( private val context: Context, var foods: MutableList<
         // TODO: Write a helper method to help set up the onBindViewHolder method
         fun bind(food: FoodEntity) {
             name.text = food.name
-            calories.text = food.calories
+            calories.text = food.calories.toString()
         }
     }
 

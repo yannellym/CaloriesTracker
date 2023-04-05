@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         // fragments that will be used
         val foodListFragment: Fragment = FoodListFragment()
-        val foodDashFragment: Fragment = DashFragment()
+        val foodDashFragment: Fragment = FoodDashFragment()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         // handle navigation selection

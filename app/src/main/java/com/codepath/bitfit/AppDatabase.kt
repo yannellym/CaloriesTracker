@@ -18,7 +18,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 private const val TAG = "database"
 // Annotates the class to specify the database entities and version
-@Database(entities = [FoodEntity::class], version = 1)
+@Database(entities = [FoodEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun foodDao(): FoodDao // Declares an abstract method that returns an instance of the FoodDao interface
 
@@ -39,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "Food-db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
         }
     }
 }
