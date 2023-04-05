@@ -2,6 +2,7 @@ package com.codepath.bitfit
 
 import android.util.Log
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -25,12 +26,13 @@ interface FoodDao {
     fun getAll(): Flow<List<FoodEntity>>
 
     @Insert
-    fun insert(foods: FoodEntity ){
-        Log.d(TAG,"Inserted $foods foods into the database.")
-    }
+    fun insert(foods: FoodEntity)
 
     @Query("DELETE FROM foods_table")
     fun deleteAll()
+
+    @Delete
+    fun deleteItem(foods: FoodEntity)
 }
 
 

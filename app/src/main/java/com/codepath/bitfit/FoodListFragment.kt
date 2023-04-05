@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.bitbit.R
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "FoodListFragment"
@@ -75,5 +77,22 @@ class FoodListFragment : Fragment() {
             val intent = Intent(requireActivity(), DetailActivity::class.java)
             startActivity(intent)
         }
+
+        //Remove Item
+        displayFoodsAdapter.setOnItemClickListener(object : DisplayFoodsAdapter.OnItemClickListener{
+
+            override fun onItemClick(position: Int) {
+                Toast.makeText(requireContext(), "Item removed at position $position", Toast.LENGTH_LONG).show()
+                val itemToDelete = foods[position]
+
+                lifecycleScope.launch(Dispatchers.IO) {
+                    (requireActivity().application as FoodApplication).db.foodDao().deleteItem(itemToDelete)
+                }
+                foods.removeAt(position)
+                displayFoodsAdapter.notifyItemRemoved(position)
+            }
+        })
+
+
     }
 }
